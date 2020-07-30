@@ -40,7 +40,7 @@ def process_request(url):
         if not link:
             continue
 
-        if link[0] != 'h':
+        if link[0:4] != 'http':
             link = link_attachment + link
 
         print(link)
