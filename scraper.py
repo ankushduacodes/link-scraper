@@ -43,7 +43,7 @@ def process_request(url):
     soup = BeautifulSoup(req.content, 'html5lib')
     link_attachment = create_link_attachment(url)
 
-    if req.status_code >= 404:
+    if req.status_code >= 400:
         print(req.status_code)
         return
 
