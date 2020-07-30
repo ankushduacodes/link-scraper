@@ -1,4 +1,5 @@
 import requests
+import argparse
 from bs4 import BeautifulSoup
 
 
@@ -10,10 +11,9 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
     }
 
-url = "https://github.com/ankushduacodes"
-
 
 def generate_link_attachment(url):
+
     link_attachment = ''
     slash_count = 0
     for char in url:
@@ -25,7 +25,8 @@ def generate_link_attachment(url):
     return link_attachment
 
 
-def main():
+def process_request(url):
+
     req = requests.get(url, headers=headers)
     soup = BeautifulSoup(req.content, 'html5lib')
     link_attachment = generate_link_attachment(url)
@@ -42,6 +43,28 @@ def main():
             link = link_attachment + link
 
         print(link)
+
+
+def main():
+
+    parser = argparse.ArgumentParser(
+                                    description='Extracts links contained in a url'
+                                    )
+    parser.add_argument(
+                        '-u',
+                        '--url',
+                        nargs='?',
+                        default='https://github.com/ankushduacodes',
+                        help='Extracts all the links from url\
+                            (if provided else extracts links from my github profile by default)'
+                        )
+
+    arg = parser.parse_args()
+    if arg.url[0:4] != 'http':
+        print('Invalid url')
+        return
+
+    process_request(arg.url)
 
 
 if __name__ == "__main__":
