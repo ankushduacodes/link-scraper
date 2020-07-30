@@ -28,7 +28,7 @@ def generate_link_attachment(url):
 def main():
     req = requests.get(url, headers=headers)
     soup = BeautifulSoup(req.content, 'html5lib')
-    link_attachment = make_it_link(url)
+    link_attachment = generate_link_attachment(url)
 
     if req.status_code == 400 or req.status_code == 500:
         return
