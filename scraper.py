@@ -31,7 +31,8 @@ def process_request(url):
     soup = BeautifulSoup(req.content, 'html5lib')
     link_attachment = generate_link_attachment(url)
 
-    if req.status_code == 400 or req.status_code == 500:
+    if req.status_code >= 404:
+        print(req.status_code)
         return
 
     for a_tag in soup.findAll('a'):
@@ -60,6 +61,7 @@ def main():
                         )
 
     arg = parser.parse_args()
+
     if arg.url[0:4] != 'http':
         print('Invalid url')
         return
