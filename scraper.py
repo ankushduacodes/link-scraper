@@ -1,3 +1,4 @@
+import re
 import requests
 import argparse
 from bs4 import BeautifulSoup
@@ -60,6 +61,11 @@ def process_request(url):
         print(link)
 
 
+def validate_url(url):
+    regex = re.compile('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
+    return regex.match(url)
+
+
 def main():
     """Takes command line argument
     """
@@ -78,7 +84,7 @@ def main():
     arg = parser.parse_args()
 
     # Checking if url is valid or not
-    if arg.url[0:4] != 'http':
+    if not validate_url(arg.url):
         print('Invalid url')
         return
 
