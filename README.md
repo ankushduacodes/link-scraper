@@ -1,2 +1,2 @@
 # link-scraper
-scraps links off a website
+scraps all the links off a website
